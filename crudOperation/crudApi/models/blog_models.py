@@ -29,8 +29,3 @@ class Blogs(models.Model):
 
     class Meta:
         db_table = "blogs"
-
-
-
-
-
