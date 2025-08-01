@@ -17,15 +17,24 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.urls import path
-from crudApi import views
+# from crudApi import views
+from crudApi.views import comment_views 
+from crudApi.views import blog_views
 from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/blog/get', views.BlogGet),
-    path('api/blog/get/<int:id>/', views.BlogGetById),
-    path('api/blog/create', views.BlogCreate), 
-    path('api/blog/update/<int:id>', views.BlogUpdate),
-    path('api/blog/patch/<int:id>', views.BlogPatch),
-    path('api/blog/delete/<int:id>', views.BlogDelete),
+
+    ####### blog ##############
+    path('api/blogs/get', blog_views.BlogGet),
+    path('api/blogs/get/<int:id>', blog_views.BlogGetById),
+    path('api/blogs/create', blog_views.BlogCreate), 
+    path('api/blogs/<int:id>',blog_views.BlogUpdate),
+    path('api/blogs/patch/<int:id>', blog_views.BlogPatch),
+    path('api/blogs/delete/<int:id>',blog_views.BlogDelete),
+    ####### comment ##############
+    path('api/comment', comment_views.Commentsview.as_view()),
+    path('api/comment/<int:id>', comment_views.Commentsview.as_view()),
+
+
 ] + static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)

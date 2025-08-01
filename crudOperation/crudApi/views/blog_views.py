@@ -2,10 +2,10 @@ from django.http import JsonResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from crudApi.serializers import BlogsSerializer
-from .models import *
-from django.shortcuts import render
+from crudApi.models.blog_models import Blogs
 from django.db.models import Q
 from rest_framework.pagination import PageNumberPagination
+
 # Create your views here.
 
 
@@ -59,9 +59,10 @@ def BlogGet(request):
 
 @api_view(["GET"])
 def BlogGetById(request , id):
-            user = Blogs.objects.get(id = id)
-            print(user)
-            serializer = BlogsSerializer(user)
+            blog = Blogs.objects.get(id = id)
+        #     user.comments = Comments.objects.filter(Q(blog_id=id))
+        #     print(blog)
+            serializer = BlogsSerializer(blog)
             return Response(serializer.data)
 
 
@@ -102,3 +103,6 @@ def BlogPatch(request, id):
                 serializer.save()
                 return Response(serializer.data)
         return Response(serializer.errors)
+
+
+
